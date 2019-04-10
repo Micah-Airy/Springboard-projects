@@ -1,0 +1,55 @@
+---
+title: "Refine_Complete"
+author: "Micah Schiavoni"
+date: "4/10/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+df <- readxl::read_xlsx("refine.xlsx")
+```
+
+## R Markdown
+
+This is my clean data set 
+
+```{r cleandf}
+
+
+view(refine_original)
+
+clean_names <- function(name, refine_original){
+   idx <- agrep(pattern = name, x = refine_original$company, ignore.case = TRUE, value = FALSE, max.distance = 1)
+   refine_original$company[idx] <- name
+   agrep(name, idx, max.distance=0.1,ignore.case = TRUE) 
+   return(refine_original)
+ }
+
+  clean_names("philips", refine_original)
+  clean_names("akzo", refine_original) 
+  clean_names("unilever", refine_original) 
+  clean_names("van houten", refine_original)
+
+
+  
+refine_complete <-  refine_original %>%
+    separate(`Product code / number`, c("productCode", "productNumber"), sep="-") %>%
+    mutate(productCode = recode(productCode, "x" = "laptop", "p" = "smartphone", "v" = "tv", "q" = "tablet")) %>%
+    mutate(product_smartphone = if_else(productCode=="p",1,0)) %>%
+    mutate(product_tv = if_else(productCode=="v",1,0)) %>%
+    mutate(product_laptop = if_else(productCode=="x",1,0)) %>%
+    mutate(product_tablet = if_else(productCode=="q",1,0)) %>%
+    mutate(company_philips = if_else(company=="philips",1,0)) %>%
+    mutate(company_akzo = if_else(company=="akzo",1,0)) %>%
+    mutate(company_van_houten = if_else(company=="van houten",1,0)) %>%
+    mutate(company_unilever = if_else(company=="unilever",1,0)) %>%
+    unite("full_address", address, city, country, sep = ",")
+
+
+  
+  write.csv(refine_complete, "refine_complete.csv")
+  
+```
+
