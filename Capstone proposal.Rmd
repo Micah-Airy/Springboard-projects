@@ -1,0 +1,23 @@
+---
+title: "Capstone Proposal"
+author: "Micah Schiavoni"
+date: "April 22, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+San Francisco fire predictions -
+https://data.sfgov.org/Public-Safety/Fire-Incidents/wr8u-xric/data
+
+The dry air of California increases the likeliness of fires starting, this is a large factor in why california faces wildfires year after year. By using the data provided by the city of San Francisco, I hope to be able to map out the areas most likely to go up in flames.
+
+App engagement on android devices -
+https://www.kaggle.com/lava18/google-play-store-apps
+
+Smartphone apps have greatly affected how society consumes content. Even the smallest apps can deliver loads of information to consumers. With the information provided by this dataset I hope to be able to predict which apps are most likely to be successful and why. 
+
+
+```
+
